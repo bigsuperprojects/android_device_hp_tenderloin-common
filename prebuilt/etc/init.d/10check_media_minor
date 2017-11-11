@@ -15,7 +15,7 @@ fi
 MM=`/system/xbin/ls -lLn /dev/store/media | sed -r -e 's/ +/\t/g' | cut -f6`
 
 # get the existing vold.fstab SDCARD= value
-OSTR=`sed -rn -e 's/.*(SDCARD=.*)$/\1/p' /fstab.tenderloin`
+OSTR=`sed -rn -e 's/.*(SDCARD=.*)$/\1/p' /fstab.shooter`
 
 if [ -z "${OSTR}" ];
 then
@@ -40,7 +40,7 @@ then
 
 	# make the change
 	sed -e "s/SDCARD=.*$/SDCARD=\/devices\/virtual\/block\/dm-${MM}/" -i \
-		/fstab.tenderloin
+		/fstab.shooter
 
 	# remount /system read-only
 	mount -o remount,ro /system

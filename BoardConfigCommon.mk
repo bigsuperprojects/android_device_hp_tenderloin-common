@@ -1,8 +1,7 @@
 # inherit from the proprietary version
--include vendor/hp/tenderloin/BoardConfigVendor.mk
--include hardware/atheros/ath6kl/firmware/device-ath6kl.mk
+-include vendor/htc/shooter/BoardConfigVendor.mk
 
-TARGET_SPECIFIC_HEADER_PATH := device/hp/tenderloin-common/include 
+TARGET_SPECIFIC_HEADER_PATH := device/htc/shooter-common/include 
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8660
@@ -23,16 +22,16 @@ LIBART_IMG_BASE := 0x57000000
 # Bootloader
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
-TARGET_BOOTLOADER_BOARD_NAME := tenderloin
+TARGET_BOOTLOADER_BOARD_NAME := shooter
 
 # We have so much memory 3:1 split is detrimental to us.
 TARGET_USES_2G_VM_SPLIT := true
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/hp/tenderloin-common/bluetooth
-BOARD_HAVE_BLUETOOTH := true
-BOARD_HAVE_BLUETOOTH_HCI := true
-BLUETOOTH_HCIATTACH_USING_PROPERTY := true
+#BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/htc/shooter-common/bluetooth
+BOARD_HAVE_BLUETOOTH := false
+#BOARD_HAVE_BLUETOOTH_HCI := true
+#BLUETOOTH_HCIATTACH_USING_PROPERTY := true
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -54,7 +53,7 @@ TARGET_DISABLE_ARM_PIE := true
 TARGET_NEEDS_PRELINK_SUPPORT := true
 TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-TARGET_HAS_NO_CAMERA_FLASH := true
+#TARGET_HAS_NO_CAMERA_FLASH := true
 
 # Display
 USE_OPENGL_RENDERER := true
@@ -78,21 +77,15 @@ BOARD_USES_QCOM_GPS := true
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 
 # Kernel
-BOARD_CUSTOM_BOOTIMG_MK := device/hp/tenderloin-common/uboot-bootimg.mk
-BOARD_USES_UBOOT := true
-BOARD_USES_UBOOT_MULTIIMAGE := true
-BOARD_KERNEL_BASE := 0x40200000
-BOARD_KERNEL_CMDLINE := console=none
-BOARD_KERNEL_IMAGE_NAME := uImage
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01400000
+BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=shooter no_console_suspend=1 androidboot.selinux=permissive
 BOARD_PAGE_SIZE := 2048
+BOARD_KERNEL_BASE := 0x48000000
 TARGET_KERNEL_SOURCE := kernel/htc/msm8960
-ifndef RECOVERY_BUILD
 TARGET_KERNEL_NO_MODULES := true
-endif
 
 # Logging
 BOARD_NEEDS_CUTILS_LOG := true
-BOARD_USES_ALT_KMSG_LOCATION := "/proc/last_klog"
 
 # Malloc
 MALLOC_SVELTE := true
@@ -102,14 +95,19 @@ TARGET_NO_ADAPTIVE_PLAYBACK := true
 
 # Partitions
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
-BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
+#TARGET_USERIMAGES_USE_F2FS := true
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16776192
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1375731712  #Update to 1312
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 20044333056
-BOARD_FLASH_BLOCK_SIZE := 131072
-BOARD_REQUIRES_FORCE_VPARTITION := true
-
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 825634816
+#825634816
+#838859776
+BOARD_CACHEIMAGE_PARTITION_SIZE := 106000000
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 1252770816
+BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
+BOARD_FLASH_BLOCK_SIZE := 4096
+#262144
+#BOARD_FLASH_BLOCK_SIZE := 131072
+#BOARD_REQUIRES_FORCE_VPARTITION := true
+BLOCK_BASED_OTA := false
 # Qualcomm support
 BOARD_USES_QCOM_HARDWARE := true
 
@@ -120,26 +118,25 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_FSTAB_VERSION := 2
-RECOVERY_SDCARD_ON_DATA := true
-TARGET_RECOVERY_FSTAB := device/hp/tenderloin-common/rootdir/etc/fstab.tenderloin
-TARGET_RECOVERY_DEVICE_DIRS := device/hp/tenderloin-common
-TARGET_RECOVERY_PRE_COMMAND := "/system/bin/rebootcmd"
+RECOVERY_SDCARD_ON_DATA := false
+TARGET_RECOVERY_FSTAB := device/htc/shooter-common/rootdir/etc/fstab.shooter
+TARGET_RECOVERY_DEVICE_DIRS := device/htc/shooter-common
 
 # Releasetools
-TARGET_PROVIDES_RELEASETOOLS := true
-TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := device/hp/tenderloin-common/releasetools/tenderloin_img_from_target_files
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/hp/tenderloin-common/releasetools/tenderloin_ota_from_target_files
+#TARGET_PROVIDES_RELEASETOOLS := true
+#TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := device/htc/shooter-common/releasetools/tenderloin_img_from_target_files
+#TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/htc/shooter-common/releasetools/tenderloin_ota_from_target_files
 
 # Twrp
-DEVICE_RESOLUTION = 1024x768
-TW_INTERNAL_STORAGE_PATH := "/data/media/0"
-TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
-TW_EXTERNAL_STORAGE_PATH := "/external_sd"
-TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
+DEVICE_RESOLUTION = 540x960
+#TW_INTERNAL_STORAGE_PATH := "/data/media/0"
+#TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
+#TW_EXTERNAL_STORAGE_PATH := "/external_sd"
+#TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_NO_SCREEN_BLANK := true
-TW_NO_REBOOT_BOOTLOADER := true
+#TW_NO_REBOOT_BOOTLOADER := true
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
-TW_WHITELIST_INPUT := "HPTouchpad"
+#TW_WHITELIST_INPUT := "HPTouchpad"
 TW_NO_CPU_TEMP := true
 TW_EXCLUDE_SUPERSU := true
 TW_EXCLUDE_ENCRYPTED_BACKUPS :=true
@@ -148,7 +145,7 @@ TW_EXCLUDE_ENCRYPTED_BACKUPS :=true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
 
 # Wifi
-BOARD_WLAN_DEVICE                := ath6kl
-BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_ath6kl
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
+#BOARD_WLAN_DEVICE                := ath6kl
+#BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+#BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_ath6kl
+#WPA_SUPPLICANT_VERSION           := VER_0_8_X

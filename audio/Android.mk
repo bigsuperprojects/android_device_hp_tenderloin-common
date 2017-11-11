@@ -16,7 +16,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := audio.primary.tenderloin
+LOCAL_MODULE := audio.primary.shooter
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SRC_FILES := \
 	audio_hw.c \
@@ -39,7 +39,7 @@ include $(BUILD_SHARED_LIBRARY)
 # The format of the name is sound_trigger.<type>.<hardware/etc>.so where the only
 # required type is 'primary'.
 include $(CLEAR_VARS)
-LOCAL_MODULE := sound_trigger.primary.tenderloin
+LOCAL_MODULE := sound_trigger.primary.shooter
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SRC_FILES := sound_trigger_hw.c
 LOCAL_C_INCLUDES += external/tinyalsa/include

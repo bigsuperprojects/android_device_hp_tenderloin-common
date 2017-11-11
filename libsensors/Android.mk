@@ -19,7 +19,7 @@ LOCAL_PATH := $(call my-dir)
 # hw/<SENSORS_HARDWARE_MODULE_ID>.<ro.product.board>.so
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := sensors.tenderloin
+LOCAL_MODULE := sensors.shooter
 
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_PROPRIETARY_MODULE := true
@@ -38,13 +38,13 @@ LOCAL_SRC_FILES := \
 
 LOCAL_CFLAGS += -DCONFIG_MPU_SENSORS_MPU3050=1
 
-LOCAL_C_INCLUDES += device/hp/tenderloin-common/mlsdk/platform/include
-LOCAL_C_INCLUDES += device/hp/tenderloin-common/mlsdk/platform/include/linux
-LOCAL_C_INCLUDES += device/hp/tenderloin-common/mlsdk/platform/linux
-LOCAL_C_INCLUDES += device/hp/tenderloin-common/mlsdk/mllite
-LOCAL_C_INCLUDES += device/hp/tenderloin-common/mlsdk/mldmp
-LOCAL_C_INCLUDES += device/hp/tenderloin-common/mlsdk/external/aichi
-LOCAL_C_INCLUDES += device/hp/tenderloin-common/mlsdk/external/akmd
+LOCAL_C_INCLUDES += device/htc/shooter-common/mlsdk/platform/include
+LOCAL_C_INCLUDES += device/htc/shooter-common/mlsdk/platform/include/linux
+LOCAL_C_INCLUDES += device/htc/shooter-common/mlsdk/platform/linux
+LOCAL_C_INCLUDES += device/htc/shooter-common/mlsdk/mllite
+LOCAL_C_INCLUDES += device/htc/shooter-common/mlsdk/mldmp
+LOCAL_C_INCLUDES += device/htc/shooter-common/mlsdk/external/aichi
+LOCAL_C_INCLUDES += device/htc/shooter-common/mlsdk/external/akmd
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils libutils libdl libmllite libmlplatform
 LOCAL_CPPFLAGS+=-DLINUX=1

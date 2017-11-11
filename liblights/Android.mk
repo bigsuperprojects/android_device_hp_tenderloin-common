@@ -24,7 +24,7 @@ LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_PROPRIETARY_MODULE := true
 LOCAL_SHARED_LIBRARIES := liblog
 
-LOCAL_MODULE := lights.tenderloin
+LOCAL_MODULE := lights.shooter
 
 LOCAL_MODULE_TAGS := optional
 

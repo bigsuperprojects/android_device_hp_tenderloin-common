@@ -17,7 +17,7 @@
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
 
-#define BTM_DEF_LOCAL_NAME   "HP Touchpad"
+#define BTM_DEF_LOCAL_NAME   "HTC Evo 3D"
 
 // Networking, Capturing, Object Transfer
 // Major Class: COMPUTER

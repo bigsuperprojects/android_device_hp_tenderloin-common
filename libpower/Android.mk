@@ -22,5 +22,5 @@ LOCAL_PROPRIETARY_MODULE := true
 LOCAL_SRC_FILES := power.c
 LOCAL_SHARED_LIBRARIES := liblog libcutils
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE := power.tenderloin
+LOCAL_MODULE := power.shooter
 include $(BUILD_SHARED_LIBRARY)

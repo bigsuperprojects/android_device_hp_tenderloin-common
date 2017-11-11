@@ -44,7 +44,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#ifdef HW_TENDERLOIN
+#ifdef HW_SHOOTER
 #include <linux/hsuart.h>
 #endif
 
@@ -311,7 +311,7 @@ static int hci_open(int rate, hcimode_t mode )
 {
 	struct termios ti;
 	uint8_t delay, activity = 0x00;
-#ifdef HW_TENDERLOIN
+#ifdef HW_SHOOTER
 	struct hsuart_mode uart_mode;
 #endif
 	int timeout = 0;
@@ -357,7 +357,7 @@ static int hci_open(int rate, hcimode_t mode )
 		return 0;
 	}
 
-#ifdef HW_TENDERLOIN
+#ifdef HW_SHOOTER
 	if (mode == omBCSP) {
 		cfg.ufd = open(cfg.dev, O_RDWR | O_NOCTTY | O_NONBLOCK);
 	} else {
@@ -372,7 +372,7 @@ static int hci_open(int rate, hcimode_t mode )
 	}
 	ALOGI("Opened serial port %s", cfg.dev);
 
-#ifndef HW_TENDERLOIN
+#ifndef HW_SHOOTER
 	tcflush(cfg.ufd, TCIOFLUSH);
 
 	/* Restore TTY line discipline - Just in case ...*/
@@ -440,7 +440,7 @@ static int hci_open(int rate, hcimode_t mode )
 		return -1;
 	}
 #else
-	// HW_TENDERLOIN
+	// HW_SHOOTER
 	if (rate == 38400) {
 		uart_mode.speed = 0x384000;
 	} else {
@@ -517,7 +517,7 @@ static int hci_set_speed(int speed)
 void put_uart(uint8_t ch)
 {
 	if (write(cfg.ufd, &ch, 1) < 0) {
-#ifdef HW_TENDERLOIN
+#ifdef HW_SHOOTER
 		usleep(1000);
 #else
 		ALOGE("UART write error");
@@ -826,13 +826,13 @@ static int set_bluetooth_power(int on)
     int rfd = -1;
     int ret = -1;
     char buffer = '0';
-#ifdef HW_TENDERLOIN
+#ifdef HW_SHOOTER
 	char hwpin[] = "/sys/user_hw/pins/bt/reset/level";
 #endif
 
 	buffer = on ? '1' : '0';
 
-#ifdef HW_TENDERLOIN
+#ifdef HW_SHOOTER
     rfd = open(hwpin, O_WRONLY);
     if (rfd < 0)
     {
@@ -2192,7 +2192,7 @@ static int csr_load_config(void)
 					pos = 8;
 				}
 				break;
-#ifndef HW_TENDERLOIN
+#ifndef HW_SHOOTER
 			case CSR_PSKEY_UART_BAUD_RATE:
 				{
 					uint16_t divisor = (cfg.speed * 64 + 7812) / 15625;   
@@ -2429,7 +2429,7 @@ int bcsp(void)
 	  
 	*/   
 
-#ifndef HW_TENDERLOIN
+#ifndef HW_SHOOTER
     len = csr_read_pfkey( CSR_PSKEY_HOSTIO_UART_PS_BLOCK, buf);   
     if (len != 20) {
         ALOGE("CSR_PSKEY_HOST_INTERFACE"); 
@@ -2633,7 +2633,7 @@ int bcsp(void)
 		return -1;
 	}
 
-#ifndef HW_TENDERLOIN
+#ifndef HW_SHOOTER
    	/* Print bluetooth chipset info */
 	csr_print_rev();
 	
@@ -2712,7 +2712,7 @@ static int csr(void)
                                                             buf[2]);   
 															
 
-#ifndef HW_TENDERLOIN
+#ifndef HW_SHOOTER
 	/* ---------------------------------------------------------------------------- */  
 	if (csr_read_pfkey_uint16( CSR_PSKEY_UART_BAUD_RATE, &divisor)) {
 		ALOGE("CSR_PSKEY_UART_BAUD_RATE");   
